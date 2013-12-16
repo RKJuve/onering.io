@@ -194,6 +194,17 @@ def action_by_receiver(user_id, bridge_name):
     return "OK"
 
 
+@app.route('/v1/<ObjectId:user_id>/wait_sound/', methods=['POST'])
+def wait_sound(user_id):
+    '''
+    When a call is connecting, give caller something to listen to.
+    '''
+    r = plivoxml.Response()
+    r.addPlay(RING_URL, loop=0)
+    # r.addSpeak(body="Trying to connect, please wait.", language='en-US')
+    return Response(str(r), mimetype='text/xml')
+
+
 ###########################
 ###  REST ROUTES - SMS  ###
 ###########################
