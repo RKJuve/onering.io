@@ -10,6 +10,10 @@ from util import readable_digits, log_state, base_url_for, uuid
 p = plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
 
 
+#############################
+###  REST ROUTES - PHONE  ###
+#############################
+
 @app.route('/v1/<ObjectId:user_id>/incoming/', methods=['POST'])
 def incoming_call(user_id):
     '''
@@ -133,6 +137,13 @@ def action_by_caller(user_id, bridge_name):
         request.form
         ))
     return "OK"
+
+
+
+
+###########################
+###  REST ROUTES - SMS  ###
+###########################
 
 
 if __name__ == '__main__':
