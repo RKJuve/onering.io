@@ -14,3 +14,4 @@ tmp/
 webapp/client/node_modules/
 webapp/client/bower_components/
 webapp/client/build/
+telephony/config.py
