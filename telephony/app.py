@@ -83,6 +83,13 @@ def bridge_enter_exit(user_id):
     if DEBUG:
         log_state('bridge_enter_exit', locals())
 
+    # Handle exit event
+    if request.form['Event'] == "ConferenceExit":
+        app.logger.info("caller has hung up?")
+        p.hangup_conference({'conference_name': bridge_name})
+        return "OK"
+
+    # Handle enter event
     call_requests = []
     for number in numbers_to_try:
         call_request = p.make_call({
