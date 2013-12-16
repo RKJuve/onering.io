@@ -205,6 +205,15 @@ def wait_sound(user_id):
     return Response(str(r), mimetype='text/xml')
 
 
+@app.route('/v1/<ObjectId:user_id>/caller_hangup/', methods=['POST'])
+def hangup(user_id):
+    '''
+    Fired when caller hangs up the phone.
+    '''
+    app.logger.info("caller " + request.form['From'] + " has hung up")
+    return "OK"
+
+
 ###########################
 ###  REST ROUTES - SMS  ###
 ###########################
