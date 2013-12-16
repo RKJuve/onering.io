@@ -1,0 +1,14 @@
+# TEAM
+
+    <name> -- <role> -- <twitter>
+
+
+# THANKS
+
+    <name> -- <twitter>
+
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, jQuery, Modernizr

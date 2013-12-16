@@ -1,0 +1,26 @@
+{
+  "author": "Dale Bustad",
+  "name": "brunch-with-friends",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "start": "brunch watch --server"
+  },
+  "dependencies": {
+    "css-brunch": ">=1.7.0",
+    "clean-css-brunch": ">=1.7.1",
+    "javascript-brunch": ">=1.7.0",
+    "coffee-script-brunch": ">= 1.7.0",
+    "uglify-js-brunch": ">=1.7.0",
+    "handlebars-brunch": ">=1.7.0",
+    "after-brunch": "0.0.4"
+  }
+}

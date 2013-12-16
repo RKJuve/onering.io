@@ -1,0 +1,48 @@
+{
+  "name": "brunch-with-friends",
+  "version": "0.0.0",
+  "authors": [
+    "Dale Bustad <dale@divmain.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "1.10.2",
+    "lodash": "2.2.1",
+    "backbone": "1.1.0",
+    "backbone.babysitter": "*",
+    "backbone.wreqr": "*",
+    "marionette": "1.3.0",
+    "html5shiv": "3.7.0",
+    "handlebars": "~1.1.2",
+    "swag": "~0.5.0"
+  },
+  "overrides": {
+    "marionette": {
+      "main": "lib/core/backbone.marionette.js",
+      "dependencies": {
+        "backbone": "~1.1.0",
+        "lodash": "*"
+      }
+    },
+    "backbone": {
+      "main": "backbone.js"
+    },
+    "backbone.babysitter": {
+      "main": "lib/backbone.babysitter.js"
+    },
+    "backbone.wreqr": {
+      "main": "lib/backbone.wreqr.js"
+    },
+    "handlebars.js": {
+      "main": "handlebars.js"
+    },
+    "lodash": {
+      "main": "dist/lodash.underscore.js"
+    }
+  }
+}
