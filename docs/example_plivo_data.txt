@@ -1,0 +1,115 @@
+ORIGINAL CALL - [11/Dec/2013 20:55:08] "POST /v1/phone/incoming/ HTTP/1.0" 200 -
+
+ImmutableMultiDict([
+    ('Event', 'StartApp'),
+    ('CallUUID', '918c949e-62e9-11e3-8f1e-1f26306fb133'),
+    ('From', '14256336799'),
+    ('Direction', 'inbound'),
+    ('To', '14255339234'),
+    ('CallStatus', 'ringing'),
+    ('BillRate', '0.00850'),
+    ('CallerName', '+14256336799')
+])
+
+
+
+
+HANGUP - [11/Dec/2013 20:55:09] "POST /v1/phone/hangup/ HTTP/1.0" 200 -
+
+ImmutableMultiDict([
+    ('Event', 'Hangup'),
+    ('BillDuration', '0'),
+    ('Duration', '0'),
+    ('CallUUID', '918c949e-62e9-11e3-8f1e-1f26306fb133'),
+    ('From', '14256336799'),
+    ('Direction', 'inbound'),
+    ('AnswerTime', ''),
+    ('To', '14255339234'),
+    ('StartTime', '2013-12-11 20:55:06'),
+    ('CallStatus', 'busy'),
+    ('BillRate', '0.00850'),
+    ('HangupCause', 'USER_BUSY'),
+    ('CallerName', '+14256336799'),
+    ('TotalCost', '0.00000'),
+    ('EndTime', '2013-12-11 20:55:07')
+])
+
+
+
+CONFERENCE CALLBACK - [12/Dec/2013 14:16:58] "POST /v1/call_from/14256336799/callback/ HTTP/1.0" 200
+
+ImmutableMultiDict([
+    ('CallerName', '+14256336799'),
+    ('CallUUID', '1b990bae-637b-11e3-8ca2-a3b81877b3b1'),
+    ('Event', 'ConferenceEnter'),
+    ('BillRate', '0.00850'),
+    ('ConferenceUUID', '1ca08540-637b-11e3-8d02-a3b81877b3b1'),
+    ('From', '14256336799'),
+    ('To', '14255339234'),
+    ('ConferenceName', 'CallFrom14256336799'),
+    ('ConferenceAction', 'enter'),
+    ('ConferenceFirstMember', 'true'),
+    ('CallStatus', 'in-progress'),
+    ('Direction', 'inbound'),
+    ('ConferenceMemberID', '6139')
+])
+
+
+
+
+CONFERENCE ACTION - [12/Dec/2013 14:17:28] "POST /v1/call_from/14256336799/action/ HTTP/1.0" 200
+ImmutableMultiDict([
+    ('CallerName', '+14256336799'),
+    ('CallUUID', '1b990bae-637b-11e3-8ca2-a3b81877b3b1'),
+    ('From', '14256336799'),
+    ('Event', 'Redirect'),
+    ('BillRate', '0.00850'),
+    ('ConferenceUUID', '1ca08540-637b-11e3-8d02-a3b81877b3b1'),
+    ('CallStatus', 'completed'),
+    ('To', '14255339234'),
+    ('ConferenceName', 'CallFrom14256336799'),
+    ('Direction', 'inbound'),
+    ('ConferenceMemberID', '6139')
+])
+
+
+
+
+HANG UP - [12/Dec/2013 14:17:29] "POST /v1/phone/hangup/ HTTP/1.0" 200 -
+ImmutableMultiDict([
+    ('BillDuration', '60'),
+    ('CallerName', '+14256336799'),
+    ('To', '14255339234'),
+    ('StartTime', '2013-12-12 14:16:54'),
+    ('Event', 'Hangup'),
+    ('BillRate', '0.00850'),
+    ('HangupCause', 'NORMAL_CLEARING'),
+    ('From', '14256336799'),
+    ('CallUUID', '1b990bae-637b-11e3-8ca2-a3b81877b3b1'),
+    ('EndTime', '2013-12-12 14:17:26'),
+    ('Duration', '31'),
+    ('Direction', 'inbound'),
+    ('CallStatus', 'completed'),
+    ('AnswerTime', '2013-12-12 14:16:55'),
+    ('TotalCost', '0.00850')
+])
+
+
+
+
+CONFERENCE CALLBACK - [12/Dec/2013 14:17:29] "POST /v1/call_from/14256336799/callback/ HTTP/1.0" 200
+ImmutableMultiDict([
+    ('CallUUID', '1b990bae-637b-11e3-8ca2-a3b81877b3b1'),
+    ('Event', 'ConferenceExit'),
+    ('ConferenceAction', 'exit'),
+    ('ConferenceMemberID', '6139'),
+    ('ConferenceLastMember', 'true'),
+    ('ConferenceUUID', '1ca08540-637b-11e3-8d02-a3b81877b3b1'),
+    ('ConferenceName', 'CallFrom14256336799')
+])
+
+
+
+newcall from 14255339234
+to 14255332266
+newcall info: (201, {'message': 'call fired', 'api_id': '9f5211c4-630e-11e3-ae3a-22000ac8823b', 'request_uuid': '6fa250a9-adb1-49f2-8263-e62a36b76234'})

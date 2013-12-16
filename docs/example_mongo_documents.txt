@@ -1,0 +1,23 @@
+db.numbers.update(
+        {_id: ObjectId("52a970e433ee1c79834b4b9e")},
+        {
+                "_id" : ObjectId("52a970e433ee1c79834b4b9e"),
+                "number" : "14255339234",
+                "_userid" : ObjectId("52a970a333ee1c79834b4b9d"),
+                "defaultRoute" : [
+                        {
+                                "type" : "ringOne",
+                                "number" : "14252099015",
+                                "length" : 10
+                        },
+                        {
+                                "type" : "voicemail"
+                        }
+                ]
+        }
+);
+
+{
+        "_id" : ObjectId("52a970a333ee1c79834b4b9d"),
+        "email" : "dale@divmain.com"
+}

@@ -1,0 +1,55 @@
+oneRing.io Tasks:
+
+Phone Routes:
+ ✔ Entry point for new, incoming calls. @done (13-12-14 15:02)
+   /v1/<ObjectId:user_id>/incoming/
+   ✔ generate unique name for bridge @done (13-12-14 15:01)
+   ✔ get list of all phones to ring @done (13-12-14 15:01)
+   ✔ add ring tone to conference "wait" --> /v1/<ObjectId:user_id>/wait_sound/ @done (13-12-14 15:02)
+   ✔ create conference (using bridge name) @done (13-12-14 15:02)
+   ✔ on success --> /v1/<ObjectId:user_id>/bridge_enter_exit/ @done (13-12-14 15:02)
+   ✔ on action within conference --> /v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_caller/ @done (13-12-14 15:02)
+
+ ☐ Attempt to connect incoming call to one of the numbers in list.
+   /v1/<ObjectId:user_id>/bridge_enter_exit/
+   ✔ initialize call to each number in list of phones to ring @done (13-12-14 15:02)
+   ✔ keep list of call request IDs @done (13-12-14 15:02)
+   ☐ persist call request ID list to database
+   ✔ on call pickup --> /v1/<ObjectId:user_id>/bridge_success/<bridge_name>/ @done (13-12-14 15:02)
+
+ ☐ Fired when an endpoint phone picks up.
+   /v1/<ObjectId:user_id>/bridge_success/<bridge_name>/
+   ✔ add phone to the conference/bridge with original caller (using bridge name) @done (13-12-14 15:02)
+   ✔ add ring tone to conference "wait" -- /v1/<ObjectId:user_id>/wait_sound/ @done (13-12-14 15:02)
+   ✔ on success --> /v1/<ObjectId:user_id>/bridge_cancel_other_attempts/<bridge_name>/ @done (13-12-14 15:02)
+   ☐ on action within call --> /v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_receiver/
+
+ ☐ When a phone is picked up, stop ringing the others.
+   /v1/<ObjectId:user_id>/bridge_cancel_other_attempts/<bridge_name>/
+   ☐ retrieve call request ID list from database
+   ☐ do hangup_request for all call request except for the one that answered
+
+ ☐ Fired when an action is taken by the caller within phone call.
+   /v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_caller/
+   ☐ ?
+
+ ☐ Fired when an action is taken by the receiver within phone call.
+   /v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_receiver/
+   ☐ ?
+
+ ☐ When a call is connecting, give caller something to listen to.
+   /v1/<ObjectId:user_id>/wait_sound/
+   ✔ play default ring in an infinite loop @done (13-12-14 15:02)
+   ☐ retrieve user's ring settings and play ring at specified URL
+
+ ☐ Fired when caller hangs up the phone.
+   /v1/<ObjectId:user_id>/caller_hangup/
+   ☐ end the bridge/conference
+
+Views:
+ ☐ 
+
+
+Design:
+ ☐ 
+

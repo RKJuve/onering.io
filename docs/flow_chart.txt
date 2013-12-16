@@ -1,0 +1,108 @@
+http://weidagang.github.io/text-diagram/
+
+object Landing Main CreateAccount PhoneConfig Settings
+Landing -> Main: current user login
+Landing -> CreateAccount: new user
+note right of CreateAccount: Enter email, pwd, location
+note right of CreateAccount: Enter CC number (optional)
+note right of CreateAccount: if no Plivo account, user does that first
+CreateAccount -> PhoneConfig
+note right of PhoneConfig: Enter Plivo Auth Key
+note right of PhoneConfig: Enter primary receiving (cell) number
+note right of PhoneConfig: Choose onering.io number
+note right of PhoneConfig: Set dollar amount cap to spend per month
+PhoneConfig -> Main: User login
+note right of Main: Shows # of unread messages
+note right of Main: Send new message
+note right of Main: Make phone call
+note right of Main: Settings button
+note right of Main: each message has sender, time, snippet, and reply button
+Main -> Settings: Change settings
+note right of Settings: phone config
+note right of Settings: voicemail box
+note right of Settings: target SIP
+note right of Settings: callerID (onering number of caller ID)
+note right of Settings: record calls?
+note right of Settings: screen calls? block spam?
+note right of Settings: user-specified call blocking
+note right of Settings: simultaneous ring?
+
++---------+               +-------+                                                        +---------------+                                     +-------------+                                     +-----------+
+| Landing |               | Main  |                                                        | CreateAccount |                                     | PhoneConfig |                                     | Settings  |
++---------+               +-------+                                                        +---------------+                                     +-------------+                                     +-----------+
+     |                        |                                                                    |                                                    |                                                  |
+     | current user login     |                                                                    |                                                    |                                                  |
+     |----------------------->|                                                                    |                                                    |                                                  |
+     |                        |                                                                    |                                                    |                                                  |
+     | new user               |                                                                    |                                                    |                                                  |
+     |-------------------------------------------------------------------------------------------->|                                                    |                                                  |
+     |                        |                                                                    | -----------------------------\                     |                                                  |
+     |                        |                                                                    |-| Enter email, pwd, location |                     |                                                  |
+     |                        |                                                                    | ------------------------------                     |                                                  |
+     |                        |                                                                    | -----------------------------\                     |                                                  |
+     |                        |                                                                    |-| Enter CC number (optional) |                     |                                                  |
+     |                        |                                                                    | ------------------------------                     |                                                  |
+     |                        |                                                                    | --------------------------------------------\      |                                                  |
+     |                        |                                                                    |-| if no Plivo account, user does that first |      |                                                  |
+     |                        |                                                                    | ---------------------------------------------      |                                                  |
+     |                        |                                                                    |                                                    |                                                  |
+     |                        |                                                                    |                                                    |                                                  |
+     |                        |                                                                    |--------------------------------------------------->|                                                  |
+     |                        |                                                                    |                                                    | -----------------------\                         |
+     |                        |                                                                    |                                                    |-| Enter Plivo Auth Key |                         |
+     |                        |                                                                    |                                                    | ------------------------                         |
+     |                        |                                                                    |                                                    | ----------------------------------------\        |
+     |                        |                                                                    |                                                    |-| Enter primary receiving (cell) number |        |
+     |                        |                                                                    |                                                    | -----------------------------------------        |
+     |                        |                                                                    |                                                    | ---------------------------\                     |
+     |                        |                                                                    |                                                    |-| Choose onering.io number |                     |
+     |                        |                                                                    |                                                    | ----------------------------                     |
+     |                        |                                                                    |                                                    | -------------------------------------------\     |
+     |                        |                                                                    |                                                    |-| Set dollar amount cap to spend per month |     |
+     |                        |                                                                    |                                                    | --------------------------------------------     |
+     |                        |                                                                    |                                                    |                                                  |
+     |                        |                                                                    |                                         User login |                                                  |
+     |                        |<------------------------------------------------------------------------------------------------------------------------|                                                  |
+     |                        | -----------------------------\                                     |                                                    |                                                  |
+     |                        |-| Shows # of unread messages |                                     |                                                    |                                                  |
+     |                        | ------------------------------                                     |                                                    |                                                  |
+     |                        | -------------------\                                               |                                                    |                                                  |
+     |                        |-| Send new message |                                               |                                                    |                                                  |
+     |                        | --------------------                                               |                                                    |                                                  |
+     |                        | ------------------\                                                |                                                    |                                                  |
+     |                        |-| Make phone call |                                                |                                                    |                                                  |
+     |                        | -------------------                                                |                                                    |                                                  |
+     |                        | ------------------\                                                |                                                    |                                                  |
+     |                        |-| Settings button |                                                |                                                    |                                                  |
+     |                        | -------------------                                                |                                                    |                                                  |
+     |                        | -----------------------------------------------------------\       |                                                    |                                                  |
+     |                        |-| each message has sender, time, snippet, and reply button |       |                                                    |                                                  |
+     |                        | ------------------------------------------------------------       |                                                    |                                                  |
+     |                        |                                                                    |                                                    |                                                  |
+     |                        | Change settings                                                    |                                                    |                                                  |
+     |                        |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------->|
+     |                        |                                                                    |                                                    |                                                  | ---------------\
+     |                        |                                                                    |                                                    |                                                  |-| phone config |
+     |                        |                                                                    |                                                    |                                                  | ----------------
+     |                        |                                                                    |                                                    |                                                  | ----------------\
+     |                        |                                                                    |                                                    |                                                  |-| voicemail box |
+     |                        |                                                                    |                                                    |                                                  | -----------------
+     |                        |                                                                    |                                                    |                                                  | -------------\
+     |                        |                                                                    |                                                    |                                                  |-| target SIP |
+     |                        |                                                                    |                                                    |                                                  | --------------
+     |                        |                                                                    |                                                    |                                                  | -----------------------------------------\
+     |                        |                                                                    |                                                    |                                                  |-| callerID (onering number of caller ID) |
+     |                        |                                                                    |                                                    |                                                  | ------------------------------------------
+     |                        |                                                                    |                                                    |                                                  | ----------------\
+     |                        |                                                                    |                                                    |                                                  |-| record calls? |
+     |                        |                                                                    |                                                    |                                                  | -----------------
+     |                        |                                                                    |                                                    |                                                  | ----------------------------\
+     |                        |                                                                    |                                                    |                                                  |-| screen calls? block spam? |
+     |                        |                                                                    |                                                    |                                                  | -----------------------------
+     |                        |                                                                    |                                                    |                                                  | -------------------------------\
+     |                        |                                                                    |                                                    |                                                  |-| user-specified call blocking |
+     |                        |                                                                    |                                                    |                                                  | --------------------------------
+     |                        |                                                                    |                                                    |                                                  | ---------------------\
+     |                        |                                                                    |                                                    |                                                  |-| simultaneous ring? |
+     |                        |                                                                    |                                                    |                                                  | ----------------------
+     |                        |                                                                    |                                                    |                                                  |
