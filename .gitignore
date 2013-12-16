@@ -1,0 +1,16 @@
+*.orig
+*.log
+*~
+__pycache__/
+src/
+
+.DS_Store
+.cache
+.project
+.settings
+Thumbs.db
+
+tmp/
+webapp/client/node_modules/
+webapp/client/bower_components/
+webapp/client/build/
