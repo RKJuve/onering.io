@@ -76,7 +76,7 @@ def incoming_call(user_id):
 def bridge_enter_exit(user_id):
     '''
     On enter: Attempt to connect incoming call to one of the numbers in list.
-    On exit: Redirect to different URL to close the bridge.
+    On exit: Close the bridge with receiver.
     '''
 
     bridge_name = request.args.get('bridge_name')
