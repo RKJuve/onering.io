@@ -124,6 +124,43 @@ def bridge_success(user_id, bridge_name):
     '''
     Fired when an endpoint phone picks up.
     '''
+    caller_number = request.args.get('caller_number')
+    dialed_number = request.args.get('dialed_number')
+    numbers_tried = request.args.get('numbers_tried').split('+')
+
+    r = plivoxml.Response()
+
+    r.addConference(
+        body=bridge_name,
+        waitSound='',
+        callbackUrl=base_url_for(
+            'bridge_cancel_other_attempts',
+            user_id=user_id,
+            bridge_name=bridge_name,
+            caller_number=caller_number,
+            dialed_number=dialed_number,
+            numbers_tried='+'.join(numbers_tried)
+            ),
+        action=base_url_for(
+            'action_by_receiver',
+            user_id=user_id,
+            bridge_name=bridge_name,
+            caller_number=caller_number,
+            dialed_number=dialed_number,
+            numbers_tried='+'.join(numbers_tried)
+            )
+        )
+
+    return Response(str(r), mimetype='text/xml')
+
+
+@app.route('/v1/<ObjectId:user_id>/bridge_cancel_other_attempts/<bridge_name>/', methods=['POST'])
+def bridge_cancel_other_attempts(user_id, bridge_name):
+    '''
+    When a phone is picked up, stop ringing the others.
+    '''
+    # TODO: hangup other numbers that are ringing
+    #       use hangup_request(request_uuid=SavedUUID):
     return "OK"
 
 
@@ -139,6 +176,12 @@ def action_by_caller(user_id, bridge_name):
     return "OK"
 
 
+@app.route('/v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_receiver/', methods=['POST'])
+def action_by_receiver(user_id, bridge_name):
+    '''
+    Fired when an action is taken by the receiver within phone call.
+    '''
+    return "OK"
 
 
 ###########################
