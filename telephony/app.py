@@ -188,6 +188,11 @@ def action_by_receiver(user_id, bridge_name):
 ###  REST ROUTES - SMS  ###
 ###########################
 
+@app.route('/v1/<ObjectId:user_id>/sms/', methods=['POST'])
+def incoming_sms():
+    print(request.form)
+    return "OK"
+
 
 if __name__ == '__main__':
     app.run(debug=DEBUG)
