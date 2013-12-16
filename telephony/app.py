@@ -74,6 +74,45 @@ def bridge_enter_exit(user_id):
     On enter: Attempt to connect incoming call to one of the numbers in list.
     On exit: Redirect to different URL to close the bridge.
     '''
+
+    bridge_name = request.args.get('bridge_name')
+    caller_number = request.args.get('caller_number')
+    dialed_number = request.args.get('dialed_number')
+    numbers_to_try = request.args.get('numbers_to_try').split('+')
+
+    if DEBUG:
+        log_state('bridge_enter_exit', locals())
+
+    call_requests = []
+    for number in numbers_to_try:
+        call_request = p.make_call({
+            'from': caller_number,
+            'to': number,
+            'answer_url': base_url_for(
+                'bridge_success',
+                user_id=user_id,
+                bridge_name=bridge_name,
+                caller_number=caller_number,
+                dialed_number=dialed_number,
+                numbers_tried='+'.join(numbers_to_try)
+                )
+            })
+        if call_request[0] == 201:
+            call_requests.append({
+                'uuid': call_request[1]['request_uuid'],
+                'number': number
+                })
+
+    # TODO: stash call_request so unneeded ringing can be cancelled later
+
+    return "OK"
+
+
+@app.route('/v1/<ObjectId:user_id>/bridge_success/<bridge_name>/', methods=['POST'])
+def bridge_success(user_id, bridge_name):
+    '''
+    Fired when an endpoint phone picks up.
+    '''
     return "OK"
 
 
