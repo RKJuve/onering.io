@@ -181,6 +181,16 @@ def action_by_receiver(user_id, bridge_name):
     '''
     Fired when an action is taken by the receiver within phone call.
     '''
+    app.logger.info("action by receiver within call {}\ninfo: {}".format(
+        bridge_name,
+        request.form
+        ))
+
+    # Handle exit event
+    if request.form['CallStatus'] == 'completed':
+        app.logger.info("receiver has hung up")
+        p.hangup_conference({'conference_name': bridge_name})
+
     return "OK"
 
 
