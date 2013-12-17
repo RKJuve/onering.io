@@ -3,7 +3,7 @@ import plivoxml
 
 from flask import request, Response
 
-from config import app, mongo, DEBUG, AUTH_ID, AUTH_TOKEN, RING_URL
+from config import app, mongo, redis, DEBUG, AUTH_ID, AUTH_TOKEN, RING_URL
 from util import readable_digits, log_state, base_url_for, uuid
 
 
