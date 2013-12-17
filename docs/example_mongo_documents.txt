@@ -1,23 +1,75 @@
+NUMBER
+======
 db.numbers.update(
-        {_id: ObjectId("52a970e433ee1c79834b4b9e")},
-        {
-                "_id" : ObjectId("52a970e433ee1c79834b4b9e"),
-                "number" : "14255339234",
-                "_userid" : ObjectId("52a970a333ee1c79834b4b9d"),
-                "defaultRoute" : [
-                        {
-                                "type" : "ringOne",
-                                "number" : "14252099015",
-                                "length" : 10
-                        },
-                        {
-                                "type" : "voicemail"
-                        }
-                ]
-        }
+    {_id: ObjectId("52a970e433ee1c79834b4b9e")},
+    {
+        "_id" : ObjectId("52a970e433ee1c79834b4b9e"),
+        "number" : "14255339234",
+        "_userid" : ObjectId("52a970a333ee1c79834b4b9d"),
+        "defaultRoute" : [
+            {
+                "type" : "ringOne",
+                "number" : "14252099015",
+                "length" : 10
+            },
+            {
+                "type" : "voicemail"
+            }
+        ],
+        "routes": [
+            [
+                {
+                    "type" : "ringOne",
+                    "number" : "14252099015",
+                    "length" : 10
+                },
+                {
+                    "type" : "voicemail"
+                }
+            ],
+
+        ]
+    }
 );
 
+USER
+====
 {
-        "_id" : ObjectId("52a970a333ee1c79834b4b9d"),
-        "email" : "dale@divmain.com"
+    "_id" : ObjectId("52a970a333ee1c79834b4b9d"),
+    "email" : "dale@divmain.com"
+}
+
+SMS
+===
+{
+    "_id": "unique string",
+    "_user_id": "unique string corresponding with user's _id",
+    "from": "the number that sent the SMS --> looks like '14255551212'",
+    "to": "the number that the SMS was sent to --> looks like '12053992929'",
+    "caller_name": "called ID name, if it is able to be resolved - will be empty for now",
+    "time_received": "INTEGER: UTC time that SMS was received --> measured in seconds from epoch",
+    "body": "the sms message text content"
+}
+
+VOICEMAIL
+=========
+{
+    "_id": "unique string",
+    "_user_id": "unique string corresponding with user's _id",
+    "_call_id": "unique string corresponding with the call's _id",
+    "from": "14255551212",
+    "to": "12063995210",
+    "recording_url": "unique URL pointing to MP3 of voicemail",
+    "transcription": "message body"
+}
+
+CALL
+====
+{
+    "_id": "unique string",
+    "_user_id": "unique string corresponding with user's _id",
+    "from": "14255551212",
+    "to": "12063995200",
+    "time_start": "INTEGER: UTC time when the call started",
+    "call_length": "INTEGER: number of seconds that the call lasted"
 }
