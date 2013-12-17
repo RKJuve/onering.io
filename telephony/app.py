@@ -2,12 +2,16 @@ import plivo
 import plivoxml
 
 from flask import request, Response
+import msgpack
 
 from config import app, mongo, redis, DEBUG, AUTH_ID, AUTH_TOKEN, RING_URL
 from util import readable_digits, log_state, base_url_for, uuid
 
 
 p = plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
+
+packer = msgpack.Packer()
+unpacker = msgpack.Unpacker()
 
 
 #############################
@@ -39,6 +43,10 @@ def incoming_call(user_id):
         connect_to_number = numberInfo['defaultRoute'][0]['number']
         connect_to_number_digits = readable_digits(connect_to_number)
         numbers_to_try = [connect_to_number]
+
+    elif route_type == "ringMany":
+        numbers_to_try = [number for number in numberInfo['defaultRoute'][0]['numbers']]
+        connect_to_number_digits = "one of multiple phone numbers."
 
     if DEBUG:
         log_state('incoming_call', locals())
@@ -94,7 +102,7 @@ def bridge_enter_exit(user_id):
         return "OK"
 
     # Handle enter event
-    call_requests = []
+    reference_name = 'call_request+{}'.format(bridge_name)
     for number in numbers_to_try:
         call_request = p.make_call({
             'from': caller_number,
@@ -105,17 +113,20 @@ def bridge_enter_exit(user_id):
                 bridge_name=bridge_name,
                 caller_number=caller_number,
                 dialed_number=dialed_number,
+                success_number=number,
                 numbers_tried='+'.join(numbers_to_try)
                 )
             })
+
         if call_request[0] == 201:
-            call_requests.append({
-                'uuid': call_request[1]['request_uuid'],
-                'number': number
-                })
+            # push call request data into redis
+            redis.lpush(reference_name,
+                        packer.pack({
+                            'request_uuid': call_request[1]['request_uuid'],
+                            'number': number
+                            }))
 
-    # TODO: stash call_request so unneeded ringing can be cancelled later
-
+    redis.expire(reference_name, 120)
     return "OK"
 
 
@@ -127,6 +138,7 @@ def bridge_success(user_id, bridge_name):
     caller_number = request.args.get('caller_number')
     dialed_number = request.args.get('dialed_number')
     numbers_tried = request.args.get('numbers_tried').split('+')
+    success_number = request.args.get('success_number')
 
     r = plivoxml.Response()
 
@@ -139,6 +151,7 @@ def bridge_success(user_id, bridge_name):
             bridge_name=bridge_name,
             caller_number=caller_number,
             dialed_number=dialed_number,
+            success_number=success_number,
             numbers_tried='+'.join(numbers_tried)
             ),
         action=base_url_for(
@@ -159,8 +172,17 @@ def bridge_cancel_other_attempts(user_id, bridge_name):
     '''
     When a phone is picked up, stop ringing the others.
     '''
-    # TODO: hangup other numbers that are ringing
-    #       use hangup_request(request_uuid=SavedUUID):
+    success_number = request.args.get('success_number')
+    reference_name = 'call_request+{}'.format(bridge_name)
+    numbers_tried = redis.lrange(reference_name, 0, -1)
+    if not numbers_tried:
+        app.logger.warning('cannot find cached call data for bridge ' + bridge_name)
+
+    for number_info in numbers_tried:
+        if not number_info['number'] == success_number:
+            p.hangup_request({
+                'request_uuid': number_info['request_uuid']
+                })
     return "OK"
 
 

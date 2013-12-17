@@ -27,7 +27,19 @@ db.numbers.update(
                     "type" : "voicemail"
                 }
             ],
-
+            [
+                {
+                    "type" : "ringMany",
+                    "numbers" : [
+                        "14252099015",
+                        "14256336799"
+                    ]
+                    "length" : 10
+                },
+                {
+                    "type" : "voicemail"
+                }
+            ],
         ]
     }
 );
