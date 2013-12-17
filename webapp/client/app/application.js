@@ -4,7 +4,8 @@ var Router = require('router'),
 var onering = new Backbone.Marionette.Application();
 
 onering.addRegions({
-    body: 'body'
+    dropzone: '#dropzone'
+    //body: 'body'
 });
 
 onering.addInitializer(function() {
@@ -13,7 +14,7 @@ onering.addInitializer(function() {
 
 onering.addInitializer(function() {
     new Router({
-        controller: new Controller({region: this.body})
+        controller: new Controller({region: this.dropzone})
     });
 });
 
