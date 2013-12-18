@@ -4,8 +4,10 @@ var Router = require('router'),
 var onering = new Backbone.Marionette.Application();
 
 onering.addRegions({
-    dropzone: '#dropzone'
-    //body: 'body'
+    navbar: '#navbarRegion',
+    main: '#mainRegion',
+    footer: '#footerRegion',
+    modal: '#modalRegion'
 });
 
 onering.addInitializer(function() {
