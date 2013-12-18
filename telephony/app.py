@@ -2,9 +2,10 @@ import plivo
 import plivoxml
 
 from flask import request, Response
+from bson.objectid import ObjectId
 
 from config import app, mongo, redis, DEBUG, AUTH_ID, AUTH_TOKEN, RING_URL
-from util import readable_digits, log_state, base_url_for, uuid, pack, unpack
+from util import readable_digits, log_state, base_url_for, uuid, pack, unpack, current_time
 
 
 p = plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
@@ -237,8 +238,18 @@ def hangup(user_id):
 ###########################
 
 @app.route('/v1/<ObjectId:user_id>/sms/', methods=['POST'])
-def incoming_sms():
-    print(request.form)
+def incoming_sms(user_id):
+    sms = {
+        "_plivo_uuid": request.form['MessageUUID'],
+        "_user_id": user_id,
+        "from": request.form['From'],
+        "to": request.form['To'],
+        "caller_name": "",
+        "time_received": current_time(),
+        "body": request.form['Text']
+    }
+    mongo.db.sms.insert(sms)
+
     return "OK"
 
 

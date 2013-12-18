@@ -1,4 +1,6 @@
+import time
 from uuid import uuid1
+
 from flask import url_for
 import msgpack
 
@@ -46,3 +48,7 @@ def pack(data):
 
 def unpack(data):
     return msgpack.unpackb(data, encoding='utf-8')
+
+
+def current_time():
+    return int(time.time())
