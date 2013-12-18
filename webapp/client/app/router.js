@@ -1,5 +1,9 @@
 module.exports = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
-    	'':'testRoute'
+    	'': 'home',
+    	'getstarted': 'getStarted',
+    	'signup':'signup',
+    	'home': 'home'
+
     }
 });

@@ -1,4 +1,4 @@
-var Signup = Backbone.Marionette.Layout.extend({
+var Signup = Backbone.Marionette.ItemView.extend({
     template: require("./template"),
 });
 

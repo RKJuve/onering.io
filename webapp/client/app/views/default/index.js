@@ -5,7 +5,7 @@ var Layout = Backbone.Marionette.Layout.extend({
 	    main: '#mainRegion',
 	    footer: '#footerRegion',
 	    modal: '#modalRegion'
-	}
+	},
 });
 
 module.exports = Layout;

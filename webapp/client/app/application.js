@@ -12,6 +12,7 @@ onering.addInitializer(function() {
 });
 
 onering.addInitializer(function() {
+
 	// master router/controller
 	onering.masterController = new Controller({region: this.body});
 	onering.masterRouter = new Router({
