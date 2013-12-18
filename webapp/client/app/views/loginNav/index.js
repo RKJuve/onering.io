@@ -1,4 +1,4 @@
-var LoginSwitch = Backbone.Marionette.ItemView.extend({
+var LoginNav = Backbone.Marionette.ItemView.extend({
     template: require("./template"),
     events: {
 		'click #loginSwitch': 'loginSwitch'
@@ -18,4 +18,4 @@ var LoginSwitch = Backbone.Marionette.ItemView.extend({
 	}
 });
 
-module.exports = LoginSwitch;
+module.exports = LoginNav;
