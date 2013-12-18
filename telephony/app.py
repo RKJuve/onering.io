@@ -2,16 +2,12 @@ import plivo
 import plivoxml
 
 from flask import request, Response
-import msgpack
 
 from config import app, mongo, redis, DEBUG, AUTH_ID, AUTH_TOKEN, RING_URL
-from util import readable_digits, log_state, base_url_for, uuid
+from util import readable_digits, log_state, base_url_for, uuid, pack, unpack
 
 
 p = plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
-
-packer = msgpack.Packer()
-unpacker = msgpack.Unpacker()
 
 
 #############################
@@ -120,11 +116,10 @@ def bridge_enter_exit(user_id):
 
         if call_request[0] == 201:
             # push call request data into redis
-            redis.lpush(reference_name,
-                        packer.pack({
-                            'request_uuid': call_request[1]['request_uuid'],
-                            'number': number
-                            }))
+            redis.lpush(reference_name, pack({
+                'request_uuid': call_request[1]['request_uuid'],
+                'number': number
+                }))
 
     redis.expire(reference_name, 120)
     return "OK"
@@ -178,7 +173,8 @@ def bridge_cancel_other_attempts(user_id, bridge_name):
     if not numbers_tried:
         app.logger.warning('cannot find cached call data for bridge ' + bridge_name)
 
-    for number_info in numbers_tried:
+    for packed_number_info in numbers_tried:
+        number_info = unpack(packed_number_info)
         if not number_info['number'] == success_number:
             p.hangup_request({
                 'request_uuid': number_info['request_uuid']

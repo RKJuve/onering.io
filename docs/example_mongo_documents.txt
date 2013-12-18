@@ -8,8 +8,11 @@ db.numbers.update(
         "_userid" : ObjectId("52a970a333ee1c79834b4b9d"),
         "defaultRoute" : [
             {
-                "type" : "ringOne",
-                "number" : "14252099015",
+                "type" : "ringMany",
+                "numbers" : [
+                    "14252099015",
+                    "14256336799"
+                ],
                 "length" : 10
             },
             {
@@ -33,7 +36,7 @@ db.numbers.update(
                     "numbers" : [
                         "14252099015",
                         "14256336799"
-                    ]
+                    ],
                     "length" : 10
                 },
                 {
