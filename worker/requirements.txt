@@ -1,0 +1,4 @@
+-e git://github.com/divmain/plivo-python.git#egg=plivo
+redis==2.8.0
+pymongo==2.6.3
+msgpack-python==0.4.0
