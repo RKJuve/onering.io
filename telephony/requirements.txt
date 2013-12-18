@@ -7,3 +7,4 @@ itsdangerous==0.23
 -e git://github.com/divmain/plivo-python.git#egg=plivo
 pymongo==2.6.3
 requests==2.1.0
+redis==2.8.0

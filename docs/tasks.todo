@@ -17,12 +17,12 @@ Phone Routes:
    ☐ persist call request ID list to database
    ✔ on call pickup --> /v1/<ObjectId:user_id>/bridge_success/<bridge_name>/ @done (13-12-14 15:02)
 
- ☐ Fired when an endpoint phone picks up.
+ ✔ Fired when an endpoint phone picks up. @done (13-12-17 01:30)
    /v1/<ObjectId:user_id>/bridge_success/<bridge_name>/
    ✔ add phone to the conference/bridge with original caller (using bridge name) @done (13-12-14 15:02)
    ✔ add ring tone to conference "wait" -- /v1/<ObjectId:user_id>/wait_sound/ @done (13-12-14 15:02)
    ✔ on success --> /v1/<ObjectId:user_id>/bridge_cancel_other_attempts/<bridge_name>/ @done (13-12-14 15:02)
-   ☐ on action within call --> /v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_receiver/
+   ✔ on action within call --> /v1/<ObjectId:user_id>/bridge/<bridge_name>/action_by_receiver/ @done (13-12-17 01:30)
 
  ☐ When a phone is picked up, stop ringing the others.
    /v1/<ObjectId:user_id>/bridge_cancel_other_attempts/<bridge_name>/

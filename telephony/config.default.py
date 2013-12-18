@@ -2,15 +2,22 @@ import os
 
 from flask import Flask
 from flask.ext.pymongo import PyMongo
-# from bson.objectid import ObjectId
+import redis
 
 
-DEBUG = True
-AUTH_ID = 'put your auth_id here'
-AUTH_TOKEN = 'put your auth_token here'
-BASE_URL = 'enter internet-accessible url here'
-RING_URL = 'enter internet-accessible url here'
+DEBUG = (os.getenv('PRODUCTION', 'false') != 'true')
+AUTH_ID = os.getenv('PLIVO_AUTH_ID', 'your AUTH_ID')
+AUTH_TOKEN = os.getenv('PLIVO_AUTH_TOKEN', 'your AUTH_TOKEN')
+BASE_URL = os.getenv('ONERING_BASE_URL', 'network accessible url')
+RING_URL = os.getenv('ONERING_RING_URL', 'network accessible url for ringtone')
 
 app = Flask("onering", static_folder='./static', static_url_path='')
-app.secret_key = os.urandom(24)
+app.secret_key = os.getenv('ONERING_SECRET_KEY', os.urandom(24))
+
 mongo = PyMongo(app)
+
+redis = redis.StrictRedis(
+    host=os.getenv('REDIS_HOST', 'localhost'),
+    port=int(os.getenv('REDIS_PORT', 6379)),
+    db=0
+    )

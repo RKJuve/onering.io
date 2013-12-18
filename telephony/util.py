@@ -1,7 +1,12 @@
+import time
 from uuid import uuid1
+
 from flask import url_for
+import msgpack
 
 from config import app, BASE_URL
+
+packer = msgpack.Packer(use_bin_type=True)
 
 
 # - - - - - - - - - - #
@@ -35,3 +40,15 @@ def readable_digits(digits):
 
 def uuid():
     return str(uuid1())
+
+
+def pack(data):
+    return msgpack.packb(data, use_bin_type=True)
+
+
+def unpack(data):
+    return msgpack.unpackb(data, encoding='utf-8')
+
+
+def current_time():
+    return int(time.time())
