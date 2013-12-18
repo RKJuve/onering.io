@@ -23,7 +23,7 @@ exports.config = {
       }
     },
     stylesheets: {
-      defaltExtension: 'css',
+      defaultExtension: 'css',
       joinTo: {
         'css/main.css': /^app[\\/]styles/
       }
