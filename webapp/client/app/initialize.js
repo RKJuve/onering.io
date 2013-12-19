@@ -3,7 +3,6 @@
 var onering = window.onering = require('application');
 
 $(function() {
-	console.log(onering);
     // app.initialize();
     onering.start();
 });
