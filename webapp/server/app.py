@@ -39,8 +39,8 @@ def logout():
     session.pop('email', None)
     session.pop('_id', None)
     if request.method == "POST":
-        return "OK"
-    return redirect(url_for('testlogin'))
+        return redirect(url_for('root'))
+    return redirect(url_for('root'))
 
 
 @app.route('/testlogin')

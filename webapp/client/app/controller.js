@@ -42,12 +42,22 @@ module.exports = Backbone.Marionette.Controller.extend({
   // this.layout.main
   // this.layout.modal
   index: function() {
-    this.layout.main.close();
+    console.log('index');
+    if (this.user.isNew()) {
+      onering.masterRouter.navigate('signup',{trigger: true});
+    } else {
+      onering.masterRouter.navigate('home',{trigger: true});
+    }
   },
   home: function() {
+    if (this.user.isNew()) {
+      onering.masterRouter.navigate('signup',{trigger: true});
+    }
     this.layout.main.close();
     this.layout.main.show(new Dashboard());
     this.layout.navbar.show(new DefaultNav({model: this.user}))
+    $('#navSettings').removeClass('active');
+    $('#navDashboard').addClass('active');
   },
   signup: function() {
   	this.layout.main.show(new Signup());
@@ -58,5 +68,7 @@ module.exports = Backbone.Marionette.Controller.extend({
   },
   settings: function() {
     this.layout.main.show(new Settings({model: this.user}))
+    $('#navDashboard').removeClass('active');
+    $('#navSettings').addClass('active');
   }
 });
