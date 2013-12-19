@@ -33,10 +33,13 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     # remove the username from the session if it's there
     session.pop('email', None)
+    session.pop('_id', None)
+    if request.method == "POST":
+        return "OK"
     return redirect(url_for('testlogin'))
 
 
@@ -68,6 +71,7 @@ def user(user_id):
 
 @app.route('/v1/user', methods=['GET', 'POST'])
 def user_new():
+    app.logger.info('got here first')
     # GET
     if request.method == 'GET':
         # Authorization
