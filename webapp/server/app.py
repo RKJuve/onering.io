@@ -24,7 +24,6 @@ def login():
         if existing_user:
             session['email'] = request.form['email']
             session['userId'] = str(existing_user['_id'])
-            session['sharedId'] = str(existing_user['sharedId'])
             return redirect(request.args.get('next') or url_for('root'))
         else:
             return "invalid email address"
@@ -44,8 +43,9 @@ def logout():
 
 
 @app.route('/testlogin')
-@login_required
+# @login_required
 def testlogin():
+    app.logger.info(session)
     if 'email' in session:
         return 'Logged in as {}.'.format(escape(session['email']))
     return 'You are not logged in.'
@@ -57,7 +57,7 @@ def testlogin():
 
 @app.route('/v1/user/<ObjectId:user_id>', methods=['PUT'])
 @api_login_required
-def user(user_id):
+def user_update(user_id):
     # Authorization
     user = mongo.db.users.find_one({'_id': user_id})
     if not user['email'] == session['email']:
@@ -69,28 +69,26 @@ def user(user_id):
     return json_response(user)
 
 
-@app.route('/v1/user', methods=['GET', 'POST'])
-def user_new():
-    app.logger.info('got here first')
-    # GET
-    if request.method == 'GET':
-        # Authorization
-        user = mongo.db.users.find_one({'_id': ObjectId(session['userId'])})
-        if not user:
-            return json_response({'message': 'cannot find user'}, status_code=500)
-        return json_response(user)
+@app.route('/v1/user', methods=['GET'])
+@api_login_required
+def user_get():
+    # Authorization
+    user = mongo.db.users.find_one({'_id': ObjectId(session['userId'])})
+    if not user:
+        return json_response({'message': 'cannot find user'}, status_code=500)
+    return json_response(user)
 
-    # POST
-    elif request.method == 'POST':
-        # Check if account already exists
-        exists = mongo.db.users.find_one({'email': request.json['email']})
-        if exists:
-            return json_response({'message': 'email already exists'}, status_code=409)
-        new_user_data = request.json
-        new_user_data['sharedId'] = ObjectId()
-        oid = mongo.db.users.insert(new_user_data)
-        user = mongo.db.users.find_one({'_id': ObjectId(oid)})
-        return json_response(user)
+
+@app.route('/v1/user', methods=['POST'])
+def user_new():
+    # Check if account already exists
+    exists = mongo.db.users.find_one({'email': request.json['email']})
+    if exists:
+        return json_response({'message': 'email already exists'}, status_code=409)
+    new_user_data = request.json
+    oid = mongo.db.users.insert(new_user_data)
+    user = mongo.db.users.find_one({'_id': ObjectId(oid)})
+    return json_response(user)
 
 
 if __name__ == '__main__':
