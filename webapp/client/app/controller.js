@@ -15,17 +15,17 @@ module.exports = Backbone.Marionette.Controller.extend({
     this.region = options.region;
 
     // initialize models/collections
-    this.user = new User();
-    this.sms = new SMS();
-    this.vm = new VM();
-    this.all = new ALL();
+    onering.user = new User();
+    onering.sms = new SMS();
+    onering.vm = new VM();
+    onering.all = new ALL();
     
     //initialize main layout view
     this.layout = new Layout();
     // show layout view
     this.region.show(this.layout);
 
-    this.user.fetch({
+    onering.user.fetch({
       success: function(data) {
         console.log('-----user model synced from mongo below------')
         console.log(data);
@@ -42,20 +42,19 @@ module.exports = Backbone.Marionette.Controller.extend({
   // this.layout.main
   // this.layout.modal
   index: function() {
-    console.log('index');
-    if (this.user.isNew()) {
+    if (onering.user.isNew()) {
       onering.masterRouter.navigate('signup',{trigger: true});
     } else {
       onering.masterRouter.navigate('home',{trigger: true});
     }
   },
   home: function() {
-    if (this.user.isNew()) {
+    if (onering.user.isNew()) {
       onering.masterRouter.navigate('signup',{trigger: true});
     }
     this.layout.main.close();
     this.layout.main.show(new Dashboard());
-    this.layout.navbar.show(new DefaultNav({model: this.user}))
+    this.layout.navbar.show(new DefaultNav({model: onering.user}))
     $('#navSettings').removeClass('active');
     $('#navDashboard').addClass('active');
   },
@@ -64,11 +63,18 @@ module.exports = Backbone.Marionette.Controller.extend({
     this.layout.navbar.show(new LoginNav());
   },
   getStarted: function() {
-  	this.layout.main.show(new GetStarted());
+    if (onering.user.isNew()) {
+  	  this.layout.main.show(new GetStarted());
+    } else {
+      onering.masterRouter.navigate('home',{trigger: true});
+    }
   },
   settings: function() {
-    this.layout.main.show(new Settings({model: this.user}))
+    this.layout.main.show(new Settings({model: onering.user}))
     $('#navDashboard').removeClass('active');
     $('#navSettings').addClass('active');
+  },
+  welcome: function() {
+    this.layout.main.show(new Dashboard());
   }
 });

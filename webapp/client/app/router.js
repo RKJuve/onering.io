@@ -4,7 +4,8 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     	'getstarted': 'getStarted',
     	'signup':'signup',
     	'home': 'home',
-    	'settings': 'settings'
+    	'settings': 'settings',
+    	'welcome': 'welcome'
 
     }
 });
