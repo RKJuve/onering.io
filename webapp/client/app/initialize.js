@@ -1,6 +1,6 @@
 // initialize new application after DOM has fully loaded
 
-var onering = require('application');
+var onering = window.onering = require('application');
 
 $(function() {
     // app.initialize();

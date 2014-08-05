@@ -9,7 +9,7 @@ from bson.objectid import ObjectId
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if not 'sharedId' in session:
+        if not 'email' in session:
             return redirect(url_for('login', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
@@ -18,7 +18,7 @@ def login_required(f):
 def api_login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if not 'sharedId' in session:
+        if not 'email' in session:
             return json_response({'message': 'login required'}, status_code=401)
         return f(*args, **kwargs)
     return decorated_function

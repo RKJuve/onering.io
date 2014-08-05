@@ -18,14 +18,19 @@ exports.config = {
           'bower_components/lodash/dist/lodash.underscore.js',
           'bower_components/jquery/jquery.js',
           'bower_components/backbone/backbone.js',
-          'bower_components/marionette/lib/core/backbone.marionette.js'
+          'bower_components/marionette/lib/core/backbone.marionette.js',
+          'bower_components/bootstrap/dist/js/bootstrap.min.js'
         ]
       }
     },
     stylesheets: {
       defaltExtension: 'css',
-      joinTo: {
-        'css/main.css': /^app[\\/]styles/
+      joinTo: 'css/main.css',
+      order: {
+        before: [
+          'bower_components/bootstrap/dist/css/bootstrap.css',
+          'bower_components/bootstrap/dist/css/bootstrap-theme.css'
+        ]
       }
     },
     templates: {
